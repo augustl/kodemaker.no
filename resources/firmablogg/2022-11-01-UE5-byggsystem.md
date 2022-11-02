@@ -5,15 +5,13 @@
 
 :blurb
 
-Unreal Engine 5 er et beist! I denne blogposten skal vi temme det litt ved å manuelt lage et prosjekt med filene som den trenger. Så kompilere og starte opp dette nye prosjektet fra kommandolinja. 
+Unreal Engine 5 er et beist! I denne blogposten skal vi temme beistet litt ved å manuelt lage et prosjekt med filene som den trenger, kompilere dem og starte opp det nye prosjektet fra kommandolinja.
 
 :body
 
 ## Motivasjon
 
-Min, og kanskje din erfaring med å lage software - er at det gir viktig forståelse å beherske hvordan en lager alle prosjekt-filer fra bunnen selv. Så kjøre alle de sentrale operasjonene dine fra kommandolinja. 
-
-I motsetning til wizards eller maler som populerer startprosjekt med masse innhold og filer som du ikke skjønner så mye av. 
+En erfaring en får ved å lage software - er at det gir viktig forståelse å beherske hvordan en lager alle prosjekt-filer fra bunnen selv. Så kjøre alle de sentrale operasjonene dine fra kommandolinja. Dette i motsetning til wizards eller maler som populerer startprosjekt med innhold og filer som du ikke skjønner så mye av. 
 
 La oss bootstrappe selv. Ingen trykking på Play-knapper i en IDE/Editor.
 
@@ -21,15 +19,15 @@ La oss bootstrappe selv. Ingen trykking på Play-knapper i en IDE/Editor.
 
 ## Make
 
-Make er kjempelett. Alle kommandoene vi ser på i dag er i Make syntax - og de ligger [en Makefile](https://github.com/finnjohnsen/blog-ue-fantastisk/blob/master/Makefile) på [github repoet](https://github.com/finnjohnsen/blog-ue-fantastisk).
+Make er kjempelett. Alle kommandoene vi ser på i dag er i Make syntax - og de ligger i [en Makefile](https://github.com/finnjohnsen/blog-ue-fantastisk/blob/master/Makefile) på [github repoet](https://github.com/finnjohnsen/blog-ue-fantastisk).
 
 ## Hva skal make gjøre?
 
-#### Hovedmålet er å kompilere 2 ting, dette er det viktigste å forstå i hele denne bloggposten
+#### Hovedmålet er å kompilere 2 ting (dette er det viktigste å forstå i hele denne bloggposten)
 1. En versjon av spillet ditt til .dll-fil, som Unreal Engine Editor (aka Beistet) bruker mens du utvikler spillet i editoren.
 1. En standalone .exe for å kjøre spillet som en sluttbruker.
 
-#### Vi trenger en ting før vi kan eksekvere standalone som sluttbruker
+#### En ting må på plass før vi kan eksekvere standalone som sluttbruker
 
 3. Cooking. Det er et artig ord for å kompilere assets. F.eks en jpeg texture til en native shader.
 
@@ -60,20 +58,20 @@ Vi kaller [dette prosjektet](https://github.com/finnjohnsen/blog-ue-fantastisk) 
 Det var jo ikke så mange filer synes jeg. Merk at vi lener oss på at et prosjekt uten assets fører til at UE velger et default kart som er innebygget i UE.
 
 ### TL;DR om prosjektfilene
-1. [**Fantastisk.uproject**](https://github.com/finnjohnsen/blog-ue-fantastisk/blob/master/Fantastisk.uproject) er hovedfila hvor alt starter. Den kan du dobbeltklikke så starter UE Editor (men ikke før du har bygget .dll-en). Og den refererer ihht konvensjon ([se "Name": "**FantastiskMain**"](https://github.com/finnjohnsen/blog-ue-fantastisk/blob/4728afc9cf75fec05a635cb928a806b2511550f6/Fantastisk.uproject#L8)) til **FantastiskMain.Build.cs**, **FantastiskEditor.Target.cs** og **Fantastisk.Target.cs**.
+1. [**Fantastisk.uproject**](https://github.com/finnjohnsen/blog-ue-fantastisk/blob/master/Fantastisk.uproject) er hovedfila hvor alt starter. Den kan du dobbeltklikke for å starte UE Editor (men ikke før du har bygget .dll-en). Og den refererer ihht konvensjon ([se "Name": "**FantastiskMain**"](https://github.com/finnjohnsen/blog-ue-fantastisk/blob/4728afc9cf75fec05a635cb928a806b2511550f6/Fantastisk.uproject#L8)) til **FantastiskMain.Build.cs**, **FantastiskEditor.Target.cs** og **Fantastisk.Target.cs**.
 
 1. [**Source/FantastiskMain.Build.cs**](https://github.com/finnjohnsen/blog-ue-fantastisk/blob/master/Source/FantastiskMain.Build.cs) drar inn avhengigheter til moduler i UE som du skal bruke.
 
-1. [**Source/FantastiskEditor.Target.cs**](https://github.com/finnjohnsen/blog-ue-fantastisk/blob/master/Source/FantastiskEditor.Target.cs) Target ansvarlig for å kompilere Editor .dll
+1. [**Source/FantastiskEditor.Target.cs**](https://github.com/finnjohnsen/blog-ue-fantastisk/blob/master/Source/FantastiskEditor.Target.cs) Target som er ansvarlig for å kompilere Editor .dll
 
-1. [**Source/Fantastisk.Target.cs**](https://github.com/finnjohnsen/blog-ue-fantastisk/blob/master/Source/Fantastisk.Target.cs) Target  ansvarlig for å kompilere standalone .exe
+1. [**Source/Fantastisk.Target.cs**](https://github.com/finnjohnsen/blog-ue-fantastisk/blob/master/Source/Fantastisk.Target.cs) Target som er ansvarlig for å kompilere standalone .exe
 
 
 [C++ -filene](https://github.com/finnjohnsen/blog-ue-fantastisk/tree/master/Source/FantastiskMain) logger når du starter opp modulen (et spill == modul), og du skal se [de logglinjene](https://github.com/finnjohnsen/blog-ue-fantastisk/blob/master/Source/FantastiskMain/FantastiskMain.cpp#L7) i console når du starter.
 
 ##  Kommandoer
 
-Ok, nå dykker vi litt i detaljer. 
+Ok, nå dykker vi litt ned i detaljer. 
 
 ~~~bash
 UE_BYGG="C:\Program Files\Epic Games\UE_5.0\Engine\Build\BatchFiles\Build.bat"
@@ -83,7 +81,7 @@ UE_EDITOR_CMD="C:\Program Files\Epic Games\UE_5.0\Engine\Binaries\Win64\UnrealEd
 
 **Build.bat** kompilerer. UE har [sitt eget byggesystem](https://docs.unrealengine.com/5.0/en-US/using-the-unreal-engine-build-pipeline/).
 
-I tilllegg trenger vi å refere til editoren på to måter; 
+I tillegg trenger vi å refere til editoren på to måter
 1. **UE_EDITOR** som starter beistet (aka Unreal Engine Editor), som du faktisk utvikler spillet i. 
 1. **UE_EDITOR_CMD** som kun *bruker editoren* i rein kommandolinje for å kompilere assets til native assets - for sitt respektive operativsystem. Vi bruker bare Win64 her da.
 
@@ -135,7 +133,7 @@ PS C:\src\fantastisk>
 ```
 </details>
 
-Nå fikk du masse filer, men essensen **Binaries/Win64/UnrealEditor-FantastiskMain.dll**
+Nå fikk du masse filer, men essensen er denne fila: **Binaries/Win64/UnrealEditor-FantastiskMain.dll**
 
 
 
@@ -152,7 +150,7 @@ Artig? I UE Editor med forrige kommando kan du dra inn assets, herje rundt og la
 
 ## Så, standalone .exe
 
-Men, denne posten er lang nok nå, og hvis du har lest hit så skjønner du det du trenger. Kjør disse kommandoene, så får vi i land denne standalone .exe.
+Kjør disse kommandoene, så får vi i land denne standalone .exe.
 ```
 $ make cook
 
