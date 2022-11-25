@@ -17,7 +17,7 @@ Men fortvil ikke. Du vet allerede hvordan public keys og private keys fungerer! 
 Alt du trenger for å forstå det store bildet, er et par søte animasjoner.
 
 
-## Å trygt dele en hemmelighet - uten å møtes først
+## Å trygt dele en hemmelighet - uten og møtes først
 
 Hvordan kan man helt trygt dele en hemmelighet, uten å utveksle nøkler eller hengelåser eller andre hemmeligheter først?
 
