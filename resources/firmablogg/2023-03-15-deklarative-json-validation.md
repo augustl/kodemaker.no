@@ -31,7 +31,7 @@ type Card = {
 Da kan det jo være fristende å slippe unna med noe alla:
 
 ```typescript
-const aCard: Card = json.parse(`{"suit": "hearts", "rank": 1}`); 
+const aCard: Card = JSON.parse(`{"suit": "hearts", "rank": 1}`); 
 ```
 
 Problem solved!
